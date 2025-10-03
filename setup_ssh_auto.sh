@@ -48,7 +48,7 @@ ssh-copy-id -i "${KEY_PATH}.pub" -p "$SERVER_PORT" "$SERVER_USER@$SERVER_HOST"
 # --- 3. Add key to ssh-agent ---
 echo "Adding key to ssh-agent..."
 # eval "$(ssh-agent -s)"
-ssh-add "$KEY_PATH"
+ssh-add --apple-use-keychain "$KEY_PATH"
 
 # --- 4. (Optional) Create SSH config entry ---
 if [ ! -z "$SSH_ALIAS" ]; then    
@@ -63,6 +63,8 @@ Host $SSH_ALIAS
   HostName $SERVER_HOST
   User $SERVER_USER
   Port $SERVER_PORT
+  UseKeychain yes
+  AddKeysToAgent yes
   IdentityFile $KEY_PATH
 EOL
     else
