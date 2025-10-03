@@ -25,6 +25,7 @@ This is useful for developers who want quick and secure access to servers from t
 - Copy the public key to a remote server.
 - Add the private key to `ssh-agent` for passwordless use.
 - Optionally create a neat alias in `~/.ssh/config`.
+- **Automatic backup** of existing SSH config before modifications (timestamped backups in `~/.ssh/`).
 - Two usage modes:
   - **Interactive:** prompts for server and key details.
     - You will be asked for the:
