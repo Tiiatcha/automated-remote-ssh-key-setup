@@ -26,18 +26,6 @@ fi
 
 source "$CONFIG_FILE"
 
-# --- Backup SSH config function ---
-backup_ssh_config() {
-    local config_file="$HOME/.ssh/config"
-    if [ -f "$config_file" ]; then
-        local backup_file="${config_file}.backup.$(date +%Y%m%d_%H%M%S)"
-        cp "$config_file" "$backup_file"
-        echo "✅ SSH config backed up to: $backup_file"
-    else
-        echo "ℹ️  No existing SSH config file to backup"
-    fi
-}
-
 # Paths
 KEY_PATH="$HOME/.ssh/$KEY_NAME"
 
@@ -63,10 +51,7 @@ echo "Adding key to ssh-agent..."
 ssh-add "$KEY_PATH"
 
 # --- 4. (Optional) Create SSH config entry ---
-if [ ! -z "$SSH_ALIAS" ]; then
-    # Backup existing SSH config before modifications
-    backup_ssh_config
-    
+if [ ! -z "$SSH_ALIAS" ]; then    
     CONFIG_SSH="$HOME/.ssh/config"
     if ! grep -q "Host $SSH_ALIAS" "$CONFIG_SSH" 2>/dev/null; then
         # Backup SSH config before modification
