@@ -29,7 +29,7 @@ fi
 # --- 2. Copy public key to server ---
 echo "Copying public key to $SERVER_USER@$SERVER_HOST..."
 echo "You will be prompted for your password on the server."
-ssh-copy-id -i "${KEY_PATH}.pub" -p "$SERVER_PORT" "$SERVER_USER@$SERVER_HOST"
+ssh-copy-id -i "${KEY_PATH}.pub" -p "$SERVER_PORT" -o PreferredAuthentications=password -o PubkeyAuthentication=no "$SERVER_USER@$SERVER_HOST"
 
 # --- 3. Add key to ssh-agent ---
 echo "Adding key to ssh-agent..."
@@ -47,6 +47,9 @@ Host $SSH_ALIAS
     HostName $SERVER_HOST
     User $SERVER_USER
     Port $SERVER_PORT
+    UseKeychain yes
+    AddKeysToAgent yes
+    IdentitiesOnly yes
     IdentityFile $KEY_PATH
 EOL
     else

@@ -1,2 +1,4 @@
 #ignore the brief.txt
 brief.txt
+teardown_ssh_key*.sh
+ssh_setup.conf
